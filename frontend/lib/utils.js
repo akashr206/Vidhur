@@ -5,35 +5,32 @@ export function cn(...inputs) {
     return twMerge(clsx(inputs));
 }
 
-export function parseJson(str) {
+export function parseJson(rawString) {
   try {
-    // Step 1: Remove surrounding quotes if any
-    let cleaned = str.trim();
-    if (cleaned.startsWith('"') && cleaned.endsWith('"')) {
-      cleaned = cleaned.slice(1, -1);
-    }
+    // 1. Extract the JSON-ish part from the text
+    const jsonStart = rawString.indexOf('{');
+    const jsonEnd = rawString.lastIndexOf('}');
+    if (jsonStart === -1 || jsonEnd === -1) throw new Error("JSON boundaries not found");
 
-    // Step 2: Unescape \n, \" etc.
-    cleaned = cleaned
-      .replace(/\\"/g, '"')
-      .replace(/\\n/g, '\n')
-      .replace(/```json/g, '')
-      .replace(/```/g, '')
-      .trim();
+    let jsonString = rawString.slice(jsonStart, jsonEnd + 1);
 
-    // Step 3: Remove the broken part (manual patch)
-    cleaned = cleaned.replace(/"chapter_numberashi":\s*{/, '');
+    // 2. Unescape characters
+    jsonString = jsonString
+      .replace(/\\"/g, '"')   // Fix escaped double quotes
+      .replace(/\\n/g, '')    // Remove \n
+      .replace(/\\t/g, '')    // Remove \t
+      .replace(/\\'/g, "'")   // Fix escaped single quotes
+      .replace(/\\\\/g, '\\');// Double backslashes
 
-    // Step 4: Find only the JSON part (remove trailing text)
-    const jsonStart = cleaned.indexOf('{');
-    const jsonEnd = cleaned.lastIndexOf('}') + 1;
-    const jsonString = cleaned.slice(jsonStart, jsonEnd);
+    // 3. Remove trailing commas (any comma followed by a closing brace/bracket)
+    jsonString = jsonString.replace(/,\s*(?=[}\]])/g, '');
 
-    // Step 5: Parse
+    // 4. Parse it
     const parsed = JSON.parse(jsonString);
     return parsed;
+
   } catch (err) {
-    console.error( err.message);
+    console.error("Failed to parse JSON:", err);
     return null;
   }
 }

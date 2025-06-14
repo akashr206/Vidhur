@@ -1,19 +1,17 @@
-import { Button } from "@/components/ui/button";
+"use client"
 import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { usePathname } from "next/navigation";
 import { LayoutDashboard } from "lucide-react";
 import { TableOfContents } from "lucide-react";
 import { Plus } from "lucide-react";
 import { Brain } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 function Sidebar() {
+  const pathname = usePathname();
+  const isActive = (path) => {
+    return pathname.includes(path) ? "bg-fuchsia-200" : "";
+  };
   return (
     <div className="w-80 fixed h-screen bg-background border-r-2 flex flex-col  px-2">
       <div className="border-b-[2px]">
@@ -35,28 +33,28 @@ function Sidebar() {
       </div>
       <div className="flex gap-2 flex-col px-3 py-3">
         <Link href={"/dashboard"}>
-          <div className="flex gap-3  p-3 rounded-md hover:bg-gray-100">
+          <div className={cn("flex gap-3  p-3 rounded-md hover:bg-gray-100", isActive("dashboard"))}>
             {" "}
             <LayoutDashboard></LayoutDashboard> Dashboard
           </div>
         </Link>
         <Link href={"/generate"}>
-          <div className="flex gap-3  p-3 rounded-md hover:bg-gray-100">
+          <div className={cn("flex gap-3  p-3 rounded-md hover:bg-gray-100", isActive("generate"))}>
             {" "}
             <Plus></Plus> Generate
           </div>
         </Link>
 
         <Link href={"/chapterdisplay"}>
-          <div className="flex gap-3  p-3 rounded-md hover:bg-gray-100">
+          <div className={cn("flex gap-3  p-3 rounded-md hover:bg-gray-100", isActive("roadmap"))}>
             <TableOfContents></TableOfContents> Roadmaps
           </div>
         </Link>
-        <Link href={"/tests"}>
-          <div className="flex gap-3  p-3 rounded-md hover:bg-gray-100">
+        {/* <Link href={"/tests"}>
+          <div className={cn("flex gap-3  p-3 rounded-md hover:bg-gray-100", isActive("dashboard"))}>
             <Brain></Brain> Tests
           </div>
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

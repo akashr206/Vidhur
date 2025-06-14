@@ -1,12 +1,12 @@
 import { getDb } from "./db";
 
-export const insertRoadmap = (id, title, chapters, overview) => {
+export const insertRoadmap = (id, title, chapters, overview, hours, weeks, level) => {
     try {
         let db = getDb();
         const stmt = db.prepare(
-            "INSERT INTO roadmaps (id, title, chapters, overview) VALUES(?, ? , ?, ?) "
+            "INSERT INTO roadmaps (id, title, chapters, overview, hours, weeks, level) VALUES(?, ? , ?, ?, ?, ?, ?) "
         );
-        stmt.run(id, title, JSON.stringify(chapters), overview);
+        stmt.run(id, title, JSON.stringify(chapters), overview, hours, weeks, level);
         console.log("Roadmap inserted successfully");
         
     } catch (error) {

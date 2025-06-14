@@ -1,31 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import {
   Breadcrumb,
-  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
@@ -34,14 +18,17 @@ import {
 } from "@/components/ui/breadcrumb";
 
 function Generator() {
+  const [concept, setConcept] = useState("");
   const [selectedExam, setSelectedExam] = useState("");
+  const [selectedLevel, setSelectedLevel] = useState("");
+  const [dailyTime, setDailyTime] = useState("");
+  const [targetTime, setTargetTime] = useState("");
 
   const exams = [
     { id: "CET", name: "CET" },
     { id: "JEE_MAINS", name: "JEE MAINS" },
     { id: "JEE_ADVANCED", name: "JEE ADVANCED" },
   ];
-  const [selectedLevel, setSelectedLevel] = useState("");
 
   const levels = [
     {
@@ -56,6 +43,44 @@ function Generator() {
     },
     { id: "VETERAN", name: "Veteran", description: "Strong grasp of concepts" },
   ];
+
+  async function generateRoadmap() {
+    console.log("sending");
+
+    if (!concept || !selectedExam || !selectedLevel || !dailyTime || !targetTime) {
+      alert("Please fill in all fields before generating.");
+      console.log("run");
+
+      return;
+    }
+
+    const payload = {
+      concept,
+      exam: selectedExam,
+      level: selectedLevel,
+      dailyTime: Number(dailyTime.split("-")[0]),
+      targetTime: Number(targetTime.split("-")[0]),
+    };
+    console.log("sending");
+
+    try {
+      const res = await fetch("/api/roadmap", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) throw new Error("Failed to generate roadmap");
+
+      const data = await res.json();
+      console.log("Generated roadmap:", data);
+      alert("Roadmap generated! Check console for now.");
+    } catch (error) {
+      console.error("Error generating roadmap:", error);
+      alert("Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <div className="w-[calc(100vw-320px)] p-5">
       <div className="px-3">
@@ -67,17 +92,18 @@ function Generator() {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink href="/page">Generate</BreadcrumbLink>
-           
               <BreadcrumbPage></BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="h-screen w-[768px]  mx-auto flex flex-col gap-7 items-center py-4">
+
+      <div className="h-screen w-[768px] mx-auto flex flex-col gap-7 items-center py-4">
         <div className="flex flex-col gap-2 items-center ">
           <div className="text-4xl font-bold">Course Generator</div>
           <div>Create your personalized learning journey</div>
         </div>
+
         <div className="flex flex-col w-full gap-1 ">
           <div className="text-xl font-bold">Concept to Learn</div>
           <div className="text-gray-400">
@@ -85,6 +111,8 @@ function Generator() {
           </div>
           <input
             type="text"
+            value={concept}
+            onChange={(e) => setConcept(e.target.value)}
             placeholder="e.g., Stereochemistry, Centre of Mass, Probability"
             className="border rounded-md px-3 py-1 shadow-md"
           />
@@ -105,14 +133,11 @@ function Generator() {
                     <div
                       key={exam.id}
                       onClick={() => setSelectedExam(exam.id)}
-                      className={`
-              px-8 py-2 rounded-lg border-2 cursor-pointer transition-all duration-200 transform
-              ${
-                selectedExam === exam.id
-                  ? "border-gray-400 bg-gray-100 text-gray-800 shadow-gray-300 shadow-lg scale-102"
-                  : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:shadow-md "
-              }
-            `}
+                      className={`px-8 py-2 rounded-lg border-2 cursor-pointer transition-all duration-200 transform
+                      ${selectedExam === exam.id
+                          ? "border-gray-400 bg-gray-100 text-gray-800 shadow-gray-300 shadow-lg scale-102"
+                          : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:shadow-md"
+                        }`}
                     >
                       <div className="text-lg font-semibold text-center">
                         {exam.name}
@@ -123,12 +148,13 @@ function Generator() {
               </div>
             </div>
           </div>
+
           <div className="flex gap-6 flex-col">
             <div>
               <h2 className="text-lg font-bold">Time Commitment</h2>
             </div>
             <div>
-              <Select>
+              <Select onValueChange={(value) => setDailyTime(value)}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select duration" />
                 </SelectTrigger>
@@ -159,14 +185,11 @@ function Generator() {
                     <div
                       key={level.id}
                       onClick={() => setSelectedLevel(level.id)}
-                      className={`
-              px-8 py-2 rounded-lg border-2 cursor-pointer transition-all duration-200 transform w-40
-              ${
-                selectedLevel === level.id
-                  ? "border-gray-400 bg-gray-100 text-gray-800 shadow-gray-300 shadow-lg scale-102"
-                  : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:shadow-md "
-              }
-            `}
+                      className={`px-8 py-2 rounded-lg border-2 cursor-pointer transition-all duration-200 transform w-40
+                      ${selectedLevel === level.id
+                          ? "border-gray-400 bg-gray-100 text-gray-800 shadow-gray-300 shadow-lg scale-102"
+                          : "border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:shadow-md"
+                        }`}
                     >
                       <div className="text-lg font-semibold text-center">
                         {level.name}
@@ -180,35 +203,41 @@ function Generator() {
               </div>
             </div>
           </div>
+
           <div className="flex gap-7 flex-col">
             <div>
-              <h2 className="text-lr font-bold">Target Completion TIme</h2>
+              <h2 className="text-lr font-bold">Target Completion Time</h2>
             </div>
             <div>
-              <Select>
+              <Select onValueChange={(value) => setTargetTime(value)}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select duration" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="2-3-hours">1-week</SelectItem>
-                  <SelectItem value="3-4-hours">2-weeks</SelectItem>
-                  <SelectItem value="4-5-hours">3-weeks</SelectItem>
-                  <SelectItem value="5-6-hours">4-weeks</SelectItem>
-                  <SelectItem value="6-7-hours">5-weeks</SelectItem>
+                  <SelectItem value="1-week">1 week</SelectItem>
+                  <SelectItem value="2-weeks">2 weeks</SelectItem>
+                  <SelectItem value="3-weeks">3 weeks</SelectItem>
+                  <SelectItem value="4-weeks">4 weeks</SelectItem>
+                  <SelectItem value="5-weeks">5 weeks</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
         </div>
-
         <div>
-          <button className="w-full px-50 cursor-pointer rounded-md py-1 bg-black text-white">
+          <button
+            onClick={() => {
+
+              generateRoadmap()
+            }}
+            className="w-full px-50 cursor-pointer rounded-md py-1 bg-black text-white"
+          >
             Generate My Learning Roadmap
           </button>
         </div>
       </div>
-          
     </div>
   );
 }
+
 export default Generator;

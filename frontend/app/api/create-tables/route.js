@@ -19,7 +19,10 @@ export async function POST(req) {
                 id TEXT PRIMARY KEY,
                 title TEXT NOT NULL,
                 overview TEXT NOT NULL,
-                chapters TEXT NOT NULL);`);
+                chapters TEXT NOT NULL,
+                hours INTEGER NOT NULL,
+                weeks INTEGER NOT NULL,
+                level TEXT NOT NULL);`);
         db.exec(`
             CREATE TABLE IF NOT EXISTS subtopics (
                 number INTEGER ,
