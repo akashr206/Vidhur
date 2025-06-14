@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 function Sidebar() {
   const pathname = usePathname();
   const isActive = (path) => {
-    return pathname.includes(path) ? "bg-fuchsia-200" : "";
+    return pathname.includes(path) ? "bg-fuchsia-100" : "";
   };
   return (
     <div className="w-80 fixed h-screen bg-background border-r-2 flex flex-col  px-2">
@@ -45,7 +45,7 @@ function Sidebar() {
           </div>
         </Link>
 
-        <Link href={"/chapterdisplay"}>
+        <Link href={"/roadmap"}>
           <div className={cn("flex gap-3  p-3 rounded-md hover:bg-gray-100", isActive("roadmap"))}>
             <TableOfContents></TableOfContents> Roadmaps
           </div>
