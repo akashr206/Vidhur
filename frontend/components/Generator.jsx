@@ -16,6 +16,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 function Generator() {
   const [concept, setConcept] = useState("");
@@ -23,6 +25,8 @@ function Generator() {
   const [selectedLevel, setSelectedLevel] = useState("");
   const [dailyTime, setDailyTime] = useState("");
   const [targetTime, setTargetTime] = useState("");
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const exams = [
     { id: "CET", name: "CET" },
@@ -45,14 +49,13 @@ function Generator() {
   ];
 
   async function generateRoadmap() {
-    console.log("sending");
-
     if (!concept || !selectedExam || !selectedLevel || !dailyTime || !targetTime) {
       alert("Please fill in all fields before generating.");
       console.log("run");
 
       return;
     }
+    setLoading(true);
 
     const payload = {
       concept,
@@ -61,7 +64,6 @@ function Generator() {
       dailyTime: Number(dailyTime.split("-")[0]),
       targetTime: Number(targetTime.split("-")[0]),
     };
-    console.log("sending");
 
     try {
       const res = await fetch("/api/roadmap", {
@@ -74,7 +76,7 @@ function Generator() {
 
       const data = await res.json();
       console.log("Generated roadmap:", data);
-      alert("Roadmap generated! Check console for now.");
+      router.push(`/roadmap/${data.id}`);
     } catch (error) {
       console.error("Error generating roadmap:", error);
       alert("Something went wrong. Please try again.");
@@ -82,7 +84,7 @@ function Generator() {
   };
 
   return (
-    <div className="w-[calc(100vw-320px)] p-5">
+    <div className="w-[calc(100vw-320px)] relative p-5">
       <div className="px-3">
         <Breadcrumb>
           <BreadcrumbList>
@@ -97,6 +99,11 @@ function Generator() {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
+
+      {loading && <div className="bg-gray-50/60 z-20 flex backdrop-blur-lg items-center justify-center absolute flex-col gap-2 inset-0 ">
+        <div><Loader2 className="animate-spin"></Loader2></div>
+        <p>Please wait while we generate your roadmap</p>
+      </div>}
 
       <div className="h-screen w-[768px] mx-auto flex flex-col gap-7 items-center py-4">
         <div className="flex flex-col gap-2 items-center ">

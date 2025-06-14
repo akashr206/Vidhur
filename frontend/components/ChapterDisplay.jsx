@@ -138,13 +138,16 @@ export default function ChapterDisplay({ id }) {
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbLink href="/page">Roadmaps</BreadcrumbLink>
-
+              <BreadcrumbPage></BreadcrumbPage>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink href={`/roadmap/${id}`}>Roadmaps</BreadcrumbLink>
               <BreadcrumbPage></BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="bg-white border-b border-gray-200">
+      <div className=" border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex items-start justify-between">
             <div className="space-y-4">
@@ -159,7 +162,7 @@ export default function ChapterDisplay({ id }) {
                 <Badge className={getDifficultyColor(courseData?.level)}>{courseData?.level}</Badge>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Clock className="w-4 h-4" />
-                  <span>{courseData?.weeks}</span>
+                  <span>{courseData?.weeks} weeks</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
                   <Target className="w-4 h-4" />

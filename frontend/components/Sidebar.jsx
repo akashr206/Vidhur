@@ -33,7 +33,7 @@ function Sidebar() {
       </div>
       <div className="flex gap-2 flex-col px-3 py-3">
         <Link href={"/dashboard"}>
-          <div className={cn("flex gap-3  p-3 rounded-md hover:bg-gray-100", isActive("dashboard"))}>
+          <div className={cn("flex gap-3  p-3 rounded-md hover:bg-gray-100", isActive("/dashboard"))}>
             {" "}
             <LayoutDashboard></LayoutDashboard> Dashboard
           </div>
