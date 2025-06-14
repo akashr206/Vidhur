@@ -18,7 +18,7 @@ export async function POST(req) {
         const { baseURl, workspaceSlug, API_KEY } = await getConfig();
         const url = `${baseURl}/workspace/${workspaceSlug}/chat`
         const systemPrompt = ` You are an expert AI Roadmap generator for JEE Advance, Mains and CET exam. Always respond in a JSON format with course title, overview, topics, and 20 - 25 words description.\n output format : { course_title : '...' \n, overview : '...'\n, chapters : [{chapter_number : 1, title : '...', topics : ['..','..']}, description : '...' \n, {...}\n ...]}`;
-        const prompt = `Generate a comprehensive roadmap for the concept "${concept}" for the exam "${exam}" at the "${level}" level. The roadmap should include an overview, chapters, and topics based on the daily study time of ${dailyTime} hours and a target completion time of ${targetTime} months. The roadmap should be ${difficulty?.difficulty} paced.`;
+        const prompt = `Generate a comprehensive roadmap for the concept "${concept}" for the exam "${exam}" at the "${level}" level. The roadmap should include an overview, chapters, and topics based on the daily study time of ${dailyTime} hours and a target completion time of ${targetTime} weeks. The roadmap should be ${difficulty?.difficulty} paced.`;
         const response = await fetch(url, {
             method: "POST",
             headers: {
@@ -36,7 +36,8 @@ export async function POST(req) {
         const parsedData = parseJson(data.textResponse);
         const id = nanoid(10);
         insertRoadmap(id, parsedData.course_title, parsedData.chapters, parsedData.overview, dailyTime * targetTime * 3, targetTime, level);
-        return NextResponse.json({ parsedData })
+        return NextResponse.json({ id })
+
     } catch (error) {
         console.log(error);
         return NextResponse.json({ error }, { status: 500 })
