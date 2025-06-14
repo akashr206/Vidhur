@@ -10,7 +10,7 @@ export async function POST(req) {
     try {
         const { baseURl, workspaceSlug, API_KEY } = await getConfig();
         const url = `${baseURl}/workspace/${workspaceSlug}/chat`
-        const systemPrompt = ` You are an expert AI course generator. Always respond in a JSON format with 1 chapters course title, overview, topics, and 20 - 25 words description.\n output format : { course_title : '...' \n, overview : '...'\n, chapters : [{chapter_number : 1, title : '...', topics : ['..','..']}, description : '...' \n, {...}\n ...]}`;
+        const systemPrompt = ` You are an expert AI Roadmap generator for JEE Advance, Mains and CET exam. Always respond in a JSON format with course title, overview, topics, and 20 - 25 words description.\n output format : { course_title : '...' \n, overview : '...'\n, chapters : [{chapter_number : 1, title : '...', topics : ['..','..']}, description : '...' \n, {...}\n ...]}`;
 
         const response = await fetch(url, {
             method: "POST",
@@ -26,13 +26,12 @@ export async function POST(req) {
             })
         })
         const data = await response.json()
-        const parsedData = parseJson(data.textResponse)
+        const parsedData = parseJson(data.textResponse);
         const id = nanoid(10);
         insertRoadmap(id, parsedData.course_title, parsedData.chapters, parsedData.overview);
         return NextResponse.json({ id })
     } catch (error) {
         console.log(error);
-
         return NextResponse.json({ error }, { status: 500 })
 
     }
@@ -47,7 +46,6 @@ export async function GET(req) {
         return NextResponse.json({ roadmaps })
     } catch (error) {
         console.log(error);
-
         return NextResponse.json({ error }, { status: 500 })
 
     }

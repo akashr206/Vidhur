@@ -1,42 +1,35 @@
 import { getDb } from "./db";
 
-import { getDb } from "./db";
-
-export const insertRoadmap = (id, title, chapters, overview) => {
+export const insertSubtopic = (number, title, chapter, roadmapId, content) => {
     try {
         let db = getDb();
         const stmt = db.prepare(
-            "INSERT INTO roadmaps (id, title, chapters, overview) VALUES(?, ? , ?, ?) "
+            "INSERT INTO subtopics (number, title, chapter, roadmapId, content) VALUES(?, ? , ?, ?, ?) "
         );
-        stmt.run(id, title, JSON.stringify(chapters), overview);
-        db.close();
+        stmt.run(number, title, chapter, roadmapId, content);
     } catch (error) {
         console.log(error);
     }
 };
 
-export const getRoadmapById = (id) => {
+export const getSubtopic = (number, chapter, roadmapId) => {
     try {
         let db = getDb();
-        const stmt = db.prepare("SELECT * FROM roadmaps WHERE id = ?");
-        const roadmap = stmt.get(id);
-        if (!roadmap) return null;
-        return {
-            ...roadmap,
-            chapters: JSON.parse(roadmap.chapters),
-        };
-    } catch (error) {}
+        const stmt = db.prepare("SELECT * FROM subtopics WHERE number = ? AND chapter = ? AND roadmapId = ?");
+        const subtopic = stmt.get(number, chapter, roadmapId);
+        if (!subtopic) return null;
+        return subtopic;
+    } catch (error) { }
 };
 
-export const getAllRoadmaps = () => {
+export const getAllSubtopics = () => {
     try {
         let db = getDb();
-        const stmt = db.prepare("SELECT * FROM roadmaps");
-        const roadmaps = stmt.all();
-        console.log(roadmaps);
+        const stmt = db.prepare("SELECT * FROM subtopics");
+        const subtopics = stmt.all();
 
-        if (!roadmaps) return null;
-        return roadmaps;
+        if (!subtopics) return null;
+        return subtopics;
     } catch (error) {
         console.log(error);
     }

@@ -7,7 +7,8 @@ export const insertRoadmap = (id, title, chapters, overview) => {
             "INSERT INTO roadmaps (id, title, chapters, overview) VALUES(?, ? , ?, ?) "
         );
         stmt.run(id, title, JSON.stringify(chapters), overview);
-        db.close();
+        console.log("Roadmap inserted successfully");
+        
     } catch (error) {
         console.log(error);
     }
