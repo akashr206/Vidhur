@@ -43,10 +43,10 @@ function Sidebar() {
               alt=""
             />
           </div>
-          <div className="px-2">
-            <span className="text-2xl block ">VIDHUR</span>
+          <div className="px-1">
+            <span className="text-2xl block font-semibold ">VIDHUR</span>
             <span className="text-sm text-muted-foreground">
-              AI poweblue course generator
+              AI POWERED IIT JEE TUTOR
             </span>
           </div>
         </div>
@@ -92,25 +92,21 @@ function Sidebar() {
           </div>
         </Link>
         <div className="flex flex-col gap-1 ml-4.5">
-          {(pathname.includes("roadmap") || pathname.includes("chapter")) &&
-            roadmaps.map((roadmap) => (
-              <div key={roadmap._id} className="flex items-center ">
-                <span>
-                  <CornerDownRight className="stroke-1"></CornerDownRight>
-                </span>
-                <Link
-                  href={`/roadmap/${roadmap.id}`}
-                  className={cn(
-                    "h-10 pt-1 rounded-md flex  items-center w-full px-3",
-                    isActive(roadmap.id)
-                  )}
-                >
-                  <span className="text-sm">
-                    {roadmap.title.slice(0, 30)}...
-                  </span>
-                </Link>
-              </div>
-            ))}
+          {(pathname.includes("roadmap") || pathname.includes("chapter")) && roadmaps.map((roadmap) => (
+            <div
+              key={roadmap.id} className="flex items-center ">
+              <span><CornerDownRight className="stroke-1"></CornerDownRight></span>
+              <Link
+                href={`/roadmap/${roadmap.id}`}
+                className={cn(
+                  "h-10 pt-1 rounded-md flex  items-center w-full px-3",
+                  isActive(roadmap.id)
+                )}
+              >
+                <span className="text-sm">{roadmap.title.slice(0, 30)}...</span>
+              </Link>
+            </div>
+          ))}
         </div>
         {/* <Link href={"/tests"}>
           <div className={cn("flex gap-3  p-3 rounded-md ", isActive("dashboard"))}>

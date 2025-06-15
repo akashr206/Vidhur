@@ -3,6 +3,7 @@ import { getConfig } from "@/lib/getConfig";
 import { parseJson } from "@/lib/utils";
 import { insertRoadmap, getAllRoadmaps } from "@/data/queries/roadmap";
 import { nanoid } from "nanoid";
+import { incrementStat } from "@/data/queries/user";
 
 const difficultyArray = [
     { chapters: 5, difficulty: "Fast pased" },
@@ -36,6 +37,7 @@ export async function POST(req) {
         const parsedData = parseJson(data.textResponse);
         const id = nanoid(10);
         insertRoadmap(id, parsedData.course_title, parsedData.chapters, parsedData.overview, dailyTime * targetTime * 3, targetTime, level);
+        incrementStat("courses");
         return NextResponse.json({ id })
 
     } catch (error) {
