@@ -6,6 +6,7 @@ import Markdown from "@/components/Markdown";
 import { Button } from "@/components/ui/button";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Progress } from "@/components/ui/progress";
+import AIChatbox from "@/components/Chatbot";
 const page = ({ params }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -75,74 +76,76 @@ const page = ({ params }) => {
     }
 
     return (
-        <div className="w-[calc(100vw-340px)] p-5">
-            <Breadcrumb className="px-3">
-                <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/">Home</BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href="/roadmap">Roadmaps</BreadcrumbLink>
-                        <BreadcrumbPage></BreadcrumbPage>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href={`/roadmap/${id}/${chapterData}`}>{chapterData.title}</BreadcrumbLink>
-                        <BreadcrumbPage></BreadcrumbPage>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator />
-                    <BreadcrumbItem>
-                        <BreadcrumbLink href={`/roadmap/${id}/${chapterData}?subtopic=${subtopic}`}>{chapterData.title}</BreadcrumbLink>
-                        <BreadcrumbPage></BreadcrumbPage>
-                    </BreadcrumbItem>
-                </BreadcrumbList>
-            </Breadcrumb>
-            <div className="max-w-3xl py-8 mx-auto">
-                {chapterData?.title && (
-                    <div className="mb-6">
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                            {chapterData.title}
-                        </h1>
-                        <p className="text-gray-600 mb-2">
-                            Subtopic {subtopic} of {chapterData?.topics.length || '?'}
-                        </p>
-                        <Progress value={(subtopic / chapterData?.topics.length) * 100} ></Progress>
-                    </div>
-                )}
+        <AIChatbox>
+            <div className="w-[calc(100vw-340px)] p-5">
+                <Breadcrumb className="px-3">
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href="/roadmap">Roadmaps</BreadcrumbLink>
+                            <BreadcrumbPage></BreadcrumbPage>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href={`/roadmap/${id}/${chapterData}`}>{chapterData.title}</BreadcrumbLink>
+                            <BreadcrumbPage></BreadcrumbPage>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator />
+                        <BreadcrumbItem>
+                            <BreadcrumbLink href={`/roadmap/${id}/${chapterData}?subtopic=${subtopic}`}>{chapterData.title}</BreadcrumbLink>
+                            <BreadcrumbPage></BreadcrumbPage>
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+                <div className="max-w-3xl py-8 mx-auto">
+                    {chapterData?.title && (
+                        <div className="mb-6">
+                            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                                {chapterData.title}
+                            </h1>
+                            <p className="text-gray-600 mb-2">
+                                Subtopic {subtopic} of {chapterData?.topics.length || '?'}
+                            </p>
+                            <Progress value={(subtopic / chapterData?.topics.length) * 100} ></Progress>
+                        </div>
+                    )}
 
-                <div className="prose prose-lg max-w-none mb-8">
-                    <Markdown content={subtopicData?.content} />
-                </div>
-
-                <div className="flex justify-between items-center pt-6 border-t border-gray-200">
-                    <Button
-                        variant={"outline"}
-                        onClick={() => handleNavigation(Number(subtopic) - 1)}
-                        disabled={!canGoPrevious()}
-                    >
-                        <ChevronLeft className="w-4 h-4 mr-2" />
-                        Previous
-                    </Button>
-
-                    <div className="flex items-center space-x-2 text-sm text-gray-500">
-                        <span>Subtopic</span>
-                        <span className="bg-gray-100 px-2 py-1 rounded font-medium">
-                            {subtopic}
-                        </span>
+                    <div className="prose prose-lg max-w-none mb-8">
+                        <Markdown content={subtopicData?.content} />
                     </div>
 
-                    <Button
-                        variant={"outline"}
-                        onClick={() => handleNavigation(Number(subtopic) + 1)}
-                        disabled={!canGoNext()}
-                    >
-                        Next
-                        <ChevronRight className="w-4 h-4 ml-2" />
-                    </Button>
+                    <div className="flex justify-between items-center pt-6 border-t border-gray-200">
+                        <Button
+                            variant={"outline"}
+                            onClick={() => handleNavigation(Number(subtopic) - 1)}
+                            disabled={!canGoPrevious()}
+                        >
+                            <ChevronLeft className="w-4 h-4 mr-2" />
+                            Previous
+                        </Button>
+
+                        <div className="flex items-center space-x-2 text-sm text-gray-500">
+                            <span>Subtopic</span>
+                            <span className="bg-gray-100 px-2 py-1 rounded font-medium">
+                                {subtopic}
+                            </span>
+                        </div>
+
+                        <Button
+                            variant={"outline"}
+                            onClick={() => handleNavigation(Number(subtopic) + 1)}
+                            disabled={!canGoNext()}
+                        >
+                            Next
+                            <ChevronRight className="w-4 h-4 ml-2" />
+                        </Button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </AIChatbox>
     )
 }
 

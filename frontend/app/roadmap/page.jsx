@@ -34,7 +34,7 @@ const page = () => {
   }, []);
   return (
     <div className="w-[calc(100vw-340px)] ">
-      <div className="p-8">
+      <div className="p-8 pb-0">
         <Breadcrumb >
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -49,7 +49,7 @@ const page = () => {
         </Breadcrumb>
       </div>
 
-      <div className=" w-max text-5xl my-8 mx-auto font-bold">Roadmaps</div>
+      <div className=" w-max text-5xl my-4 mx-auto font-bold">Roadmaps</div>
       <div className="gap-3 flex flex-wrap justify-evenly">
         {data?.map((d, i) => (
           <Card key={i} className="max-w-96 relative">
