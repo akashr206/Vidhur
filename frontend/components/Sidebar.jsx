@@ -41,10 +41,10 @@ function Sidebar() {
               alt=""
             />
           </div>
-          <div className="px-2">
-            <span className="text-2xl block ">VIDHUR</span>
+          <div className="px-1">
+            <span className="text-2xl block font-semibold ">VIDHUR</span>
             <span className="text-sm text-muted-foreground">
-              AI poweblue course generator
+              AI POWERED IIT JEE TUTOR
             </span>
           </div>
         </div>
@@ -85,7 +85,7 @@ function Sidebar() {
         <div className="flex flex-col gap-1 ml-4.5">
           {(pathname.includes("roadmap") || pathname.includes("chapter")) && roadmaps.map((roadmap) => (
             <div
-              key={roadmap._id} className="flex items-center ">
+              key={roadmap.id} className="flex items-center ">
               <span><CornerDownRight className="stroke-1"></CornerDownRight></span>
               <Link
                 href={`/roadmap/${roadmap.id}`}

@@ -9,6 +9,15 @@ import { Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
 const page = () => {
   const [data, setData] = useState([]);
   async function fetchData() {
@@ -24,7 +33,22 @@ const page = () => {
     fetchData()
   }, []);
   return (
-    <div className="w-[calc(100vw-340px)] mx-auto ">
+    <div className="w-[calc(100vw-340px)] ">
+      <div className="p-8">
+        <Breadcrumb >
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/page">Roadmaps</BreadcrumbLink>
+              <BreadcrumbPage></BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+
       <div className=" w-max text-5xl my-8 mx-auto font-bold">Roadmaps</div>
       <div className="gap-3 flex flex-wrap justify-evenly">
         {data?.map((d, i) => (

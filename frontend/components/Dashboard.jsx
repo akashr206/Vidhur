@@ -1,36 +1,56 @@
-import { Button } from "@/components/ui/button";
-
+"use client"
 import {
   Card,
-  CardContent,
-  CardDescription,
   CardHeader,
-  CardTitle,
+  CardDescription
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Breadcrumb,
-  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { use, useEffect, useState } from "react";
 
 function Dashboard() {
+
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/dashboard");
+      if (!response.ok) {
+        throw new Error("Failed to fetch dashboard data");
+      }
+      const result = await response.json();
+      console.log(result);
+
+      setData(result.data || {});
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <div className="flex flex-col p-5 w-[calc(100vw-340px)]">
       <div className="px-3">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Vidhur</BreadcrumbLink>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/page">Dashboard</BreadcrumbLink>
-            
+              <BreadcrumbLink href="/dashboard">Dashboard</BreadcrumbLink>
+
               <BreadcrumbPage></BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -39,35 +59,18 @@ function Dashboard() {
       <div>
         <div>
           <div className="flex  md:flex-wrap flex-col md:flex-row md:justify-evenly gap-3  p-5">
-            <Card className="w-80 h-40">
-              <CardHeader>Total Courses Generated</CardHeader>
+            <Card className="w-72 h-40 items-center">
+              <CardHeader className={"w-full text-xl font-semibold text-center"}>Total Courses Generated</CardHeader>
+              <CardDescription className={"text-2xl font-bold"}>{data && data[0].count}</CardDescription>
             </Card>
-            <Card className="w-80 h-40">
-              <CardHeader>Quizzes Created</CardHeader>
+            <Card className="w-72 h-40 items-center">
+              <CardHeader className={"w-full text-xl font-semibold text-center"}>Chat-box Requests </CardHeader>
+              <CardDescription className={"text-2xl font-bold"}>{data && data[1].count}</CardDescription>
             </Card>
-            <Card className="w-80 h-40">
-              <CardHeader>Total Chapters </CardHeader>
+            <Card className="w-72 h-40 items-center">
+              <CardHeader className={"w-full text-xl font-semibold text-center"}>Total Chapters </CardHeader>
+              <CardDescription className={"text-2xl font-bold"}>{data && data[1].count}</CardDescription>``
             </Card>
-          </div>
-          <div className="flex flex-col justify-center items-center bg-gray-100 h-120 rounded-2xl gap-4">
-            <div>
-              <div className="flex justify-center items-center">
-                <img src="/NewLogo.jpg" alt="" className="w-20 rounded-full" />
-              </div>
-              <div className="text-3xl">Welcome to Vidhur</div>
-            </div>
-            <div className="text-gray-500 text-xl w-200">
-              <center>
-                Your intelligent learning platform. Create chapters, generate
-                content, and build engaging quizzes to enhance your educational
-                experience.
-              </center>
-            </div>
-            <div>
-              <button className="bg-black text-white py-2 px-5 rounded-md">
-                Get Started
-              </button>
-            </div>
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getConfig } from "@/lib/getConfig";
 import { getRoadmapById } from "@/data/queries/roadmap";
 import { insertSubtopic, getSubtopic, getAllSubtopics } from "@/data/queries/chapter";
+import { incrementStat } from "@/data/queries/user";
 
 async function generateChapterBySubtopics(chapterTitle, subtopic) {
     const { baseURl, workspaceSlug, API_KEY } = await getConfig();
@@ -74,6 +75,7 @@ export async function POST(req) {
             id,
             data
         );
+        incrementStat("chapters");
         return NextResponse.json({ data: { content: data }, chapter }, { status: 200 });
     } catch (error) {
         console.log(error);

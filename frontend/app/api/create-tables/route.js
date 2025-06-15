@@ -30,11 +30,27 @@ export async function POST(req) {
                 roadmapId TEXT NOT NULL,
                 chapter INTEGER NOT NULL,
                 content TEXT NOT NULL);`);
+        db.exec(`
+  CREATE TABLE IF NOT EXISTS stats (
+    name TEXT PRIMARY KEY,
+    count INTEGER DEFAULT 0
+  );
+`);
+        const names = ["courses", "chapters", "questions"];
+
+        for (const name of names) {
+            db.prepare(`
+    INSERT OR IGNORE INTO stats (name, count)
+    VALUES (?, 0)
+  `).run(name);
+        }
 
         db.close();
         return NextResponse.json({ message: "Table created successfully" });
 
     } catch (error) {
+        console.log(error);
+
         return NextResponse.json({ error }, { status: 500 });
     }
 }
