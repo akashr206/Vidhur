@@ -6,7 +6,8 @@ export function cn(...inputs) {
 }
 
 export function parseJson(rawString) {
-
+  console.log(rawString);
+  
   try {
     // 1. Extract the JSON-ish part from the text
     const jsonStart = rawString.indexOf('{');
