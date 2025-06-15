@@ -263,6 +263,9 @@ With **Vidhur**:
 
 **No internet required. No data left the device. And all this happens on the edge.**
 
+##Screenshots
+You can access the ScreenShots of our application from screenshots.md files
+
 ## License
 
 MIT License
