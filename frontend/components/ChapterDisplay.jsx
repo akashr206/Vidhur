@@ -54,7 +54,7 @@ export default function ChapterDisplay({ id }) {
   }, [id])
 
   return (
-    <div className="min-h-screen relative bg-gray-50 p-5">
+    <div className="min-h-screen relative p-5">
       {/* Header */}
       <div className="px-3">
         <Breadcrumb>
@@ -67,8 +67,10 @@ export default function ChapterDisplay({ id }) {
               <BreadcrumbLink href="/page">Roadmaps</BreadcrumbLink>
               <BreadcrumbPage></BreadcrumbPage>
             </BreadcrumbItem>
+            <BreadcrumbSeparator />
+
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/roadmap/${id}`}>Roadmaps</BreadcrumbLink>
+              <BreadcrumbLink href={`/roadmap/${id}`}>{courseData?.title}</BreadcrumbLink>
               <BreadcrumbPage></BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
