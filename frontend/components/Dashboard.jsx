@@ -52,7 +52,7 @@ function Dashboard() {
           <div className="flex flex-col justify-center items-center bg-gray-100 h-120 rounded-2xl gap-4">
             <div>
               <div className="flex justify-center items-center">
-                <img src="logo.jpg" alt="" className="w-20 rounded-full" />
+                <img src="NewLogo.jpg" alt="" className="w-20 rounded-full" />
               </div>
               <div className="text-3xl">Welcome to Vidhur</div>
             </div>
