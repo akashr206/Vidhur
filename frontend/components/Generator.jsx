@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -51,7 +52,6 @@ function Generator() {
   async function generateRoadmap() {
     if (!concept || !selectedExam || !selectedLevel || !dailyTime || !targetTime) {
       alert("Please fill in all fields before generating.");
-      console.log("run");
 
       return;
     }
@@ -84,12 +84,12 @@ function Generator() {
   };
 
   return (
-    <div className="w-[calc(100vw-320px)] relative p-5">
+    <div className="w-[calc(100vw-340px)] relative p-5">
       <div className="px-3">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Vidhur</BreadcrumbLink>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -131,7 +131,7 @@ function Generator() {
           <div className="flex flex-col gap-2">
             <div className="flex gap-3">
               <div className="">
-                <h2 className="text-lg font-bold mb-6 text-gray-800">
+                <h2 className="text-lg font-bold mb-6">
                   You are preparing for?
                 </h2>
 
@@ -232,15 +232,15 @@ function Generator() {
           </div>
         </div>
         <div>
-          <button
+          <Button
             onClick={() => {
 
               generateRoadmap()
             }}
-            className="w-full px-50 cursor-pointer rounded-md py-1 bg-black text-white"
+            className="w-full px-50 cursor-pointer rounded-md py-1 "
           >
             Generate My Learning Roadmap
-          </button>
+          </Button>
         </div>
       </div>
     </div>

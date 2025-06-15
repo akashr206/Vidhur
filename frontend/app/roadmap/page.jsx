@@ -29,12 +29,12 @@ const page = () => {
       <div className="gap-3 flex flex-wrap justify-evenly">
         {data?.map((d, i) => (
           <Card key={i} className="max-w-96 relative">
-            <span className=" "><Link href={`/roadmap/${d.id}`} className="absolute inset-0 z-20"></Link></span>
             <CardHeader className="text-lg flex font-bold">
               <p className="flex-1">{d.title}</p>
-              <Button variant="ghost" className="cursor-pointer hover:text-red-500" ><Trash2></Trash2></Button>
             </CardHeader>
             <CardDescription className="px-5 text-md">{d.overview}</CardDescription>
+
+            <span className=" "><Link href={`/roadmap/${d.id}`} className="absolute inset-0 z-20"></Link><Button variant="ghost" className="cursor-pointer z-30 absolute top-4 right-4 hover:text-blue-500" ><Trash2></Trash2></Button></span>
           </Card>
         ))}
       </div>

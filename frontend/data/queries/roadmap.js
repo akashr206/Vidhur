@@ -32,7 +32,6 @@ export const getAllRoadmaps = () => {
         let db = getDb();
         const stmt = db.prepare("SELECT * FROM roadmaps");
         const roadmaps = stmt.all();
-        console.log(roadmaps);
 
         if (!roadmaps) return null;
         return roadmaps;

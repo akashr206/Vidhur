@@ -135,7 +135,7 @@ function Tests() {
       case "Intermediate":
         return "bg-orange-100 text-orange-800";
       case "Veteran":
-        return "bg-red-100 text-red-800";
+        return "bg-blue-100 text-blue-800";
       default:
         return "bg-gray-100 text-gray-800";
     }
@@ -244,7 +244,7 @@ function Tests() {
                     <DropdownMenuItem>Edit Test</DropdownMenuItem>
                     <DropdownMenuItem>View Results</DropdownMenuItem>
                     <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                    <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+                    <DropdownMenuItem className="text-blue-600">Delete</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>

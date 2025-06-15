@@ -26,9 +26,9 @@ async function generateChapterBySubtopics(chapterTitle, subtopic) {
             })
         });
 
-        // if (!response.ok) {
-        //     throw new Error(`HTTP error for subtopic "${subtopic}"! status: ${response.status}`);
-        // }
+        if (!response.ok) {
+            throw new Error(`HTTP error for subtopic "${subtopic}"! status: ${response.status}`);
+        }
 
         const result = await response.json();
         console.log(`Generated content for subtopic "${subtopic}":`, result);

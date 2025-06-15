@@ -149,7 +149,6 @@ export default function MCQ() {
 
   const handleSubmit = () => {
     // Handle test submission
-    console.log("Test submitted:", { answers, markedForReview })
     setShowSubmitDialog(false)
   }
 

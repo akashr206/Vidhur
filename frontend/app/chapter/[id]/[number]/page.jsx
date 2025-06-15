@@ -31,7 +31,6 @@ const page = ({ params }) => {
             const data = await response.json();
             setSubtopicData(data.data);
             setChapterData(data.chapter);
-            console.log(data.chapter);
 
         } catch (error) {
             console.error("Failed to fetch subtopic:", error);

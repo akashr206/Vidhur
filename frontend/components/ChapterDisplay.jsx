@@ -26,7 +26,7 @@ export default function ChapterDisplay({ id }) {
       case "INTERMEDIATE":
         return "bg-yellow-100 text-yellow-700"
       case "VETERAN":
-        return "bg-red-100 text-red-700"
+        return "bg-blue-100 text-blue-700"
       default:
         return "bg-gray-100 text-gray-600"
     }
@@ -60,7 +60,7 @@ export default function ChapterDisplay({ id }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Vidhur</BreadcrumbLink>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -77,32 +77,32 @@ export default function ChapterDisplay({ id }) {
         </Breadcrumb>
       </div>
 
-      {loading && <div className="bg-gray-50/60 z-20 flex backdrop-blur-lg h-screen items-center justify-center absolute flex-col gap-2 inset-0 ">
+      {loading && <div className="bg-gray-50/60 z-20 mx-auto flex backdrop-blur-lg h-screen items-center justify-center absolute flex-col gap-2 inset-0 ">
         <div><Loader2 className="animate-spin"></Loader2></div>
         <p>Please wait while we generate your roadmap</p>
       </div>}
-      <div className=" border-b border-gray-200">
+      <div className=" border-b border-border">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex items-start justify-between">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900">{courseData?.title}</h1>
-                  <p className="text-gray-600 mt-1">{courseData?.overview}</p>
+                  <h1 className="text-3xl font-bold">{courseData?.title}</h1>
+                  <p className="text-muted-foreground mt-1">{courseData?.overview}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-6">
                 <Badge className={getDifficultyColor(courseData?.level)}>{courseData?.level}</Badge>
-                <div className="flex items-center gap-2 text-gray-600">
+                <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   <span>{courseData?.weeks} weeks</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600">
+                <div className="flex items-center gap-2">
                   <Target className="w-4 h-4" />
                   <span>{courseData?.hours} hours</span>
                 </div>
-                <div className="flex items-center gap-2 text-gray-600">
+                <div className="flex items-center gap-2 ">
                   <BookOpen className="w-4 h-4" />
                   <span>{courseData?.chapters?.length} chapters</span>
                 </div>
@@ -122,13 +122,13 @@ export default function ChapterDisplay({ id }) {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-4 mb-3">
-                      <span className="text-xl font-bold text-gray-900">
+                      <span className="text-xl font-bold">
                         Chapter {chapter.chapter_number}: {chapter.title}
                       </span>
                     </div>
 
                     {/* Chapter Description */}
-                    <p className="text-gray-600 leading-relaxed">{chapter.description}</p>
+                    <p className="text-muted-foreground leading-relaxed">{chapter.description}</p>
                   </div>
 
                   <div className="flex items-center gap-4 ml-6">
@@ -140,7 +140,7 @@ export default function ChapterDisplay({ id }) {
               <CardContent>
                 <div className="flex gap-2">
                   {chapter.status !== "completed" && (
-                    <Button onClick={() => router.push(`/chapter/${id}/${chapter?.chapter_number}?subtopic=1`)} className="bg-fuchsia-600 hover:bg-fuchsia-700 text-white flex items-center gap-2">
+                    <Button onClick={() => router.push(`/chapter/${id}/${chapter?.chapter_number}?subtopic=1`)} className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2">
                       <Play className="w-4 h-4" />
                       Start Chapter
                     </Button>

@@ -3,7 +3,7 @@
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
-import 'katex/dist/katex.min.css'; // Import KaTeX CSS
+import 'katex/dist/katex.min.css';
 
 const Markdown = ({ content }) => {
   return (
@@ -24,6 +24,9 @@ const Markdown = ({ content }) => {
           p: ({ children }) => (
             <p className="mb-4 text-gray-700 leading-relaxed">{children}</p>
           ),
+          pre: ({ children }) => (
+            <p className=" text-gray-700 leading-relaxed">{children}</p>
+          ),
           ul: ({ children }) => (
             <ul className="list-disc list-inside mb-4 space-y-1">{children}</ul>
           ),
@@ -31,7 +34,7 @@ const Markdown = ({ content }) => {
             <ol className="list-decimal list-inside mb-4 space-y-1">{children}</ol>
           ),
           li: ({ children }) => (
-            <li className="text-gray-700">{children}</li>
+            <li className="text-gray-700 flex gap-2 items-top"><span className='w-1.5 h-1.5 mt-2.5 bg-black shrink-0 rounded-full'></span>{children}</li>
           ),
           code: ({ inline, children }) => {
             if (inline) {
@@ -42,7 +45,7 @@ const Markdown = ({ content }) => {
               );
             }
             return (
-              <pre className="bg-gray-50 p-4 rounded-lg overflow-x-auto mb-4">
+              <pre className="bg-gray-50 w-max rounded-lg overflow-x-auto">
                 <code className="text-sm font-mono text-gray-800">{children}</code>
               </pre>
             );
