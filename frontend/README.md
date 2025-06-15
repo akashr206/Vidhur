@@ -5,9 +5,9 @@ Vidhur is an AI-powered desktop application built for IIT-JEE aspirants. It gene
 > Privacy-first, Intelligent-by-design, Tailored for You
 
 ---
-
+ 
 ## **Key Features**
-
+ 
 - Personalized Roadmap Generation  
   Generate structured chapter-wise roadmaps based on:
   - Knowledge level
