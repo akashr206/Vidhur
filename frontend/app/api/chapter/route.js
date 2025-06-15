@@ -11,7 +11,8 @@ async function generateChapterBySubtopics(chapterTitle, subtopic) {
     const systemPrompt = `You are an expert chapter generator for JEE Advanced, MAINS and KCET Exams. generate comprehensive course without any additional Note or anything else you just need to provide the content.`;
 
     const userMessage = `Generate content for the subtopic "${subtopic}" under the chapter "${chapterTitle}". Include explanations, examples, and practical applications.`;
-
+    console.log(API_KEY);
+    
     try {
         const response = await fetch(url, {
             method: "POST",
