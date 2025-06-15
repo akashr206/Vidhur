@@ -1,7 +1,7 @@
 {
-  "name": "mlcourse",
+  "name": "vidhur",
   "version": "1.0.0",
-  "description": "A simple Electron app to create ML course",
+  "description": "AI powered course generator for IIT JEE students",
   "main": "electron/main.js",
   "type": "module",
   "scripts": {
@@ -32,7 +32,7 @@
     "electron-builder": "^24.13.3"
   },
   "build": {
-    "appId": "com.akashr.mlcourse",
+    "appId": "com.akashr.vidhur",
     "productName": "ML Course",
     "directories": {
       "output": "dist",

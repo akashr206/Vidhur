@@ -61,7 +61,7 @@ function createWindow() {
         </head>
         <body>
             <div class="spinner"></div>
-            <h2>Loading ML Course...</h2>
+            <h2>Loading Vidhur...</h2>
             <p>Starting Next.js server...</p>
         </body>
         </html>
