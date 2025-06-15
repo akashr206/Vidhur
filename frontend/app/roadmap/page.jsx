@@ -1,11 +1,7 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
-import { Trash2 } from "lucide-react"
+import { Card, CardDescription, CardHeader } from "@/components/ui/card";
+import { Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -27,15 +23,14 @@ const page = () => {
     }
     const result = await response.json();
     setData(result?.roadmaps);
-
   }
   useEffect(() => {
-    fetchData()
+    fetchData();
   }, []);
   return (
     <div className="w-[calc(100vw-340px)] ">
       <div className="p-8 pb-0">
-        <Breadcrumb >
+        <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -53,12 +48,25 @@ const page = () => {
       <div className="gap-3 flex flex-wrap justify-evenly">
         {data?.map((d, i) => (
           <Card key={i} className="max-w-96 relative">
-            <CardHeader className="text-lg flex font-bold">
+            <CardHeader className="text-lg flex font-bold pr-16">
               <p className="flex-1">{d.title}</p>
             </CardHeader>
-            <CardDescription className="px-5 text-md">{d.overview}</CardDescription>
+            <CardDescription className="px-5 text-md">
+              {d.overview}
+            </CardDescription>
 
-            <span className=" "><Link href={`/roadmap/${d.id}`} className="absolute inset-0 z-20"></Link><Button variant="ghost" className="cursor-pointer z-30 absolute top-4 right-4 hover:text-blue-500" ><Trash2></Trash2></Button></span>
+            <span className="">
+              <Link
+                href={`/roadmap/${d.id}`}
+                className="absolute inset-0 z-20"
+              ></Link>
+              <Button
+                variant="ghost"
+                className="cursor-pointer z-30 absolute top-4 right-4 hover:text-blue-500"
+              >
+                <Trash2></Trash2>
+              </Button>
+            </span>
           </Card>
         ))}
       </div>
