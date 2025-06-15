@@ -2,12 +2,11 @@ import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs) {
-    return twMerge(clsx(inputs));
+  return twMerge(clsx(inputs));
 }
 
 export function parseJson(rawString) {
-  console.log(rawString);
-  
+
   try {
     // 1. Extract the JSON-ish part from the text
     const jsonStart = rawString.indexOf('{');
@@ -18,17 +17,17 @@ export function parseJson(rawString) {
 
     // 2. Unescape characters
     jsonString = jsonString
-      .replace(/\\"/g, '"')   // Fix escaped double quotes
-      .replace(/\\n/g, '')    // Remove \n
-      .replace(/\\t/g, '')    // Remove \t
-      .replace(/\\'/g, "'")   // Fix escaped single quotes
-      .replace(/\\\\/g, '\\');// Double backslashes
+      .replace(/\\"/g, '"')
+      .replace(/\\n/g, '')
+      .replace(/\\t/g, '')
+      .replace(/\\'/g, "'")
+      .replace(/\\\\/g, '\\');
 
-    // 3. Remove trailing commas (any comma followed by a closing brace/bracket)
     jsonString = jsonString.replace(/,\s*(?=[}\]])/g, '');
 
-    // 4. Parse it
     const parsed = JSON.parse(jsonString);
+    console.log(parsed);
+
     return parsed;
 
   } catch (err) {

@@ -1,11 +1,12 @@
+"use client"
 import Sidebar from "@/components/Sidebar";
 import Dashboard from "@/components/Dashboard";
-import Image from "next/image";
+import { use } from "react";
 
 export default function Home() {
   return (
     <div className="">
-     <Dashboard></Dashboard>
+      <Dashboard></Dashboard>
     </div>
   );
 }
